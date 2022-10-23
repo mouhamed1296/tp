@@ -76,7 +76,6 @@ password.addEventListener("keyup", () => {
 //Submit buttton
 connexionBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("clicked");
   credentials.email = mail.value;
   credentials.password = password.value;
   console.log(credentials);
