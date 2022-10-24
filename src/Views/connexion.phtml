@@ -1,6 +1,5 @@
-<?php include_once "./components/head.php"; 
-include_once "../repositories/UserRepository.php";
-$repo = new UserRepository();
+<?php 
+include_once __DIR__."/components/head.phtml"; 
 ?>
 
 <body>
@@ -9,12 +8,12 @@ $repo = new UserRepository();
             <div class="flex flex-col md:flex md:flex-row md:items-center md:gap-12">
                 <div class="md:col-span-1">
                     <div class="px-4 sm:px-0">
-                        <img src="./images/login.svg" alt="illustration inscription">
+                        <img src="http:://localhost/tp/images/login.svg" alt="illustration inscription">
                     </div>
                 </div>
                 <div class="mt-5 md:col-span-2 md:mt-0">
                     <h1 class="text-emerald-700 text-center font-bold text-xl mb-4">Connexion</h1>
-                    <form action="#" method="POST" class="md:mt-16">
+                    <form action="" method="POST" class="md:mt-16">
                         <div class="overflow-hidden shadow sm:rounded-md">
                             <div class="bg-white flex flex-col gap-10 px-4 py-10 sm:p-6">
                                 <div class="col-span-6 sm:col-span-3">
@@ -52,7 +51,7 @@ $repo = new UserRepository();
             </div>
         </div>
     </div>
-    <script src="js/connexion.js"></script>
+    <script src="http:://localhost/tp/js/connexion.js"></script>
 </body>
 
 </html>

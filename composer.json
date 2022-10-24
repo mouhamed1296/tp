@@ -1,0 +1,16 @@
+{
+    "name": "mamadou/tp",
+    "description": "tp php",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mamadou Sarr",
+            "email": "mbayelel@gmail.com"
+        }
+    ],
+    "require": {}
+}

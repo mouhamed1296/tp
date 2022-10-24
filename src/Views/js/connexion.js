@@ -73,14 +73,6 @@ password.addEventListener("keyup", () => {
   }
 });
 
-//Submit buttton
-connexionBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  credentials.email = mail.value;
-  credentials.password = password.value;
-  console.log(credentials);
-});
-
 //Utility functions
 const resetMailValidation = () => {
   invalidEmailText.classList.add("hidden");

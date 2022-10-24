@@ -1,6 +1,9 @@
 <?php
-require_once "../config/Db.php";
-require_once "../models/User.php";
+namespace App\Repositories;
+require_once __DIR__."/../../vendor/autoload.php";
+
+use App\Config\Db;
+use App\Models\User;
 
 class UserRepository {
     private $databaseConnection;
@@ -33,5 +36,13 @@ class UserRepository {
 
     public function searchUser(string $matricule){
         
+    }
+
+    public function getUserByEmail(string $email): User
+    {
+        $sql = "SELECT * from user WHERE mail='$email'";
+        $res = $this->databaseConnection->query($sql);
+        return $res->fetchObject(User::class);
+
     }
 }

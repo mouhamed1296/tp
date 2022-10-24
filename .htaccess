@@ -1,0 +1,15 @@
+DirectoryIndex index.php
+
+RewriteEngine On
+
+RewriteBase /tp/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ index.php [QSA]
+
+RewriteRule ^(.*)/js/(.+.js)$ src/Views/js/$2 [L,NC]
+
+RewriteRule ^(.*)/images/(.+.*)$ src/Views/images/$2 [L,NC]
