@@ -6,11 +6,19 @@ require __DIR__."/../../vendor/autoload.php";
 class User{
     
     public function __construct(private string $matricule, private string $lastname, private string $firstname, 
-    private string $mail, private string $role, private string $photo, private int $state)
+    private string $mail, private string $role, private $photo, private string $password, private int $state = 1, private int $isAdmin = 0)
     {}
 
     public function getMatricule(): string {
         return $this->matricule;
+    }
+
+    public function getNom(): string {
+        return $this->lastname;
+    }
+
+    public function getPrenom(): string {
+        return $this->firstname;
     }
 
     public function getName(): string {
@@ -25,11 +33,18 @@ class User{
         return $this->role;
     }
 
-    public function getPhoto(): string {
+    public function getPhoto() {
         return $this->photo;
     }
 
     public function getState(): int {
         return $this->state;
+    }
+
+    public function getPassword(): string {
+        return $this->password;
+    }
+    public function getIsAdmin(): int {
+        return $this->isAdmin;
     }
 }
