@@ -59,6 +59,7 @@ class AddUserController
         ".$err."
         </p>";
         require_once __DIR__.'/../Views/inscription.phtml';
+        exit;
     }
 
     private function showSuccess(){
@@ -86,6 +87,7 @@ class AddUserController
         </div>
     </div>';
         require_once __DIR__.'/../Views/inscription.phtml';
+        exit;
     }
 
     private function setSession(string $nom, string $prenom, string $email, string $role, string $password) 

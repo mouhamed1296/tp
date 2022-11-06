@@ -10,8 +10,7 @@ class UserRepository {
     
     public function __construct()
     {
-        $database = new Db();
-        $this->databaseConnection = $database->connect();
+        $this->databaseConnection = Db::connect();
     }
 
     public function addUser(User $user): int {
@@ -45,24 +44,87 @@ class UserRepository {
         return 0;
     }
 
-    public function updateUser(string $matricule){
+    public function updateProfilePhoto(string $email, $photoData): bool {
+        $sql = "UPDATE user SET photo=? WHERE email=?";
+        $statement = $this->databaseConnection->prepare($sql);
+        $statement->bindParam(1, $photoData);
+        $statement->bindParam(2, $email);
+        return $statement->execute();
+    }
+
+    public function updateUser(string $sql){
+        $this->databaseConnection->exec($sql);
+    }
+
+    public function draftUser(string $email){
+        $date_archive = date('y-m-d');
+        $sql = "UPDATE user SET etat=0, date_archive='$date_archive', date_desarchive=null WHERE email='$email'";
+        $this->databaseConnection->exec($sql);
+    }
+
+    public function unDraftUser(string $email){
+        $date_desarchive = date('y-m-d');
+        $sql = "UPDATE user SET etat=1, date_archive=null, date_desarchive='$date_desarchive' WHERE email='$email'";
+        $this->databaseConnection->exec($sql);
+    }
+
+    public function changeRole($email)
+    {
+        $user = $this->getUserByEmail($email);
+        $newRole = $user->getIsAdmin() === 1 ? "User" : "Admin";
+        $isAdmin = $user->getIsAdmin() === 1 ? 0 : 1; 
+        $sql = "UPDATE user SET `role`='$newRole', is_admin=$isAdmin WHERE email='$email'";
+        $this->databaseConnection->exec($sql);
+    }
+
+    public function getUndraftedUsers(string $email): array | null
+    {
+        $sql = "SELECT * from user WHERE etat=1 and email != '$email'";
+        return $this->runSelectionRequest($sql);
+    }
+
+    public function getDraftedUsers(string $email): array | null
+    {
+        $sql = "SELECT * from user WHERE etat=0 and email != '$email'";
+        return $this->runSelectionRequest($sql);
+    }
+
+    public function searchUndraftedUsers(string $searchTerm, $email): array | null
+    {
+        $sql = "SELECT * FROM user where etat=1 and email != '$email'
+        and (nom like '%$searchTerm%' or prenom like  '%$searchTerm%'
+         or email like '%$searchTerm%' or matricule like '%$searchTerm%')  
+        ORDER BY id ASC";
+
+        return $this->runSelectionRequest($sql);
 
     }
 
-    public function draftUser(string $matricule){
+    public function searchDraftedUsers(string $searchTerm, string $email){
+        $sql = "SELECT * FROM user where etat=0 and email != '$email'
+        and (nom like '%$searchTerm%' or prenom like  '%$searchTerm%'
+         or email like '%$searchTerm%' or matricule like '%$searchTerm%') 
+        ORDER BY id ASC";
+          
+          return $this->runSelectionRequest($sql);
 
     }
 
-    public function getUndraftedUsers(){
+    public function paginateSearchUndrafted(string $searchTerm, int $start, int $offset, string $email) {
+        $sql = "SELECT * FROM user where etat=1 and email != '$email'
+        and (nom like '%$searchTerm%' or prenom like  '%$searchTerm%'
+         or email like '%$searchTerm%' or matricule like '%$searchTerm%')  
+        ORDER BY id ASC LIMIT $start, $offset";
 
+        return $this->runSelectionRequest($sql);
     }
-
-    public function getDraftedUsers(){
-
-    }
-
-    public function searchUser(string $matricule){
-        
+    public function paginateSearchDrafted(string $searchTerm, int $start, int $offset, string $email) {
+        $sql = "SELECT * FROM user where etat=0 and email != '$email'
+        and (nom like '%$searchTerm%' or prenom like  '%$searchTerm%'
+         or email like '%$searchTerm%' or matricule like '%$searchTerm%') 
+        ORDER BY id ASC LIMIT $start, $offset";
+          
+          return $this->runSelectionRequest($sql);
     }
 
     public function generateMatricule(): int
@@ -79,21 +141,35 @@ class UserRepository {
     public function getUserByEmail(string $email): User|null
     {
         $sql = "SELECT * from user WHERE email='$email'";
-        $res = $this->databaseConnection->query($sql);
-        if ($res->rowCount() > 0) {
-            $data = $res->fetchAll();
-            return $this->convertArrayToUsers($data)[0];
-        }
-        return null;
+        return $this->runSelectionRequest($sql)[0] ?? null;
     }
 
     private function convertArrayToUsers(array $array): array
     {
         $users = [];
         foreach($array as $donne){
-            $user = new User($donne['matricule'], $donne['nom'], $donne['prenom'], $donne['email'], $donne['role'], $donne['photo'], $donne['etat']);
+            $user = new User($donne['matricule'], $donne['nom'], $donne['prenom'], $donne['email'], $donne['role'], $donne['photo'], $donne['mdp'], $donne['etat'], $donne['is_admin'], $donne['date_archive'], $donne['date_ins']);
             array_push($users, $user);
         }
         return $users;
+    }
+
+    private function runSelectionRequest($sql): array | null
+    {
+        $res = $this->databaseConnection->query($sql);
+        if ($res->rowCount() > 0) {
+            $data = $res->fetchAll();
+            return $this->convertArrayToUsers($data);
+        }
+        return null;
+    }
+
+    public function paginateUndrafted(int $start, int $offset, string $email) {
+        $sql = "SELECT * from user WHERE etat=1 and email!='$email' LIMIT $start, $offset";
+        return $this->runSelectionRequest($sql);
+    }
+    public function paginateDrafted(int $start, int $offset, string $email) {
+        $sql = "SELECT * from user WHERE etat=0 and email!='$email' LIMIT $start, $offset";
+        return $this->runSelectionRequest($sql);
     }
 }

@@ -1,0 +1,71 @@
+<table class="w-full text-sm text-left text-gray-500 flex sm:flex-col">
+    <thead class="text-xs text-white uppercase bg-emerald-600">
+        <tr class="flex sm:flex-row sm:justify-between sm:py-4 sm:px-6 flex-col">
+            <th scope="col" class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+                Matricule
+            </th>
+            <th scope="col" class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+                Nom
+            </th>
+            <th scope="col" class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+                Prenom
+            </th>
+            <th scope="col" class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+                Email
+            </th>
+            <th scope="col" class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+                Role
+            </th>
+            <th scope="col" class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+                Date inscription
+            </th>
+            <th scope="col" class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody class="flex sm:flex-col">
+        <?php
+                        foreach ($users as $key => $user):
+                            if ((int) $key % 2 === 0):
+                    ?>
+        <tr class="bg-white border-b sm:flex-row sm:justify-between sm:py-4 sm:px-6 flex flex-col">
+            <?php include "adminTableRowContent.phtml" ?>
+        </tr>
+        <?php
+                            else:
+                    ?>
+        <tr class="bg-white border-b sm:flex-row sm:justify-between sm:py-4 sm:px-6 bg-zinc-100 flex flex-col">
+            <?php include "adminTableRowContent.phtml" ?>
+        </tr>
+        <?php
+                            endif;
+                        endforeach;
+                    ?>
+    </tbody>
+</table>
+
+<div id="tooltip-edit" role="tooltip"
+    class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 8px);"
+    data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom">
+    Modifier
+    <div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate(0px);">
+    </div>
+</div>
+<div id="tooltip-change-role" role="tooltip"
+    class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 8px);"
+    data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom">
+    Changer role
+    <div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate(0px);">
+    </div>
+</div>
+<div id="tooltip-draft" role="tooltip"
+    class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+    style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 8px);"
+    data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom">
+    Archiver
+    <div class="tooltip-arrow" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate(0px);">
+    </div>
+</div>

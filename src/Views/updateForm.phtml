@@ -1,0 +1,78 @@
+<?php
+include_once __DIR__."/components/head.phtml";
+?>
+
+<body>
+    <?php
+include_once __DIR__."/components/nav.phtml";
+?>
+    <div class="container flex flex-col md:mx-auto mx-4 mt-5 md:col-span-2 md:mt-0">
+        <h1 class="text-emerald-700 text-center font-bold text-xl mb-4">Inscription</h1>
+        <form action="update" method="POST" enctype="multipart/form-data">
+            <div>
+                <!-- <button id="toggle-modal"
+                                class="hidden text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button" data-modal-toggle="popup-modal">
+                                Toggle modal</button> -->
+                <?php if (isset($_GET['error'])): ?>
+                <div class="text-red-700 font-medium font-bold text-center p-4 bg-red-200 mx-20 rounded-md mb-4">
+                    <span><?= $_GET['error'] ?? null ?></span>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="overflow-hidden shadow sm:rounded-md">
+                <div class="bg-white px-4 py-5 sm:p-6">
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="first-name" class="block text-sm font-medium text-gray-700">Nom</label>
+                            <input type="text" name="first-name" id="first-name" autocomplete="off"
+                                value="<?= $user->getNom() ?? null?>"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                            <span id="error-nom" class="hidden mt-2 text-red-500"></span>
+                            <span id="nom-ok" class="hidden mt-2 text-emerald-500 ">ok</span>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="last-name" class="block text-sm font-medium text-gray-700">Prenom</label>
+                            <input type="text" name="last-name" id="last-name" autocomplete="off"
+                                value="<?= $user->getPrenom() ?? null?>"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                            <span id="error-prenom" class="hidden mt-2 text-red-500"></span>
+                            <span id="prenom-ok" class="hidden mt-2 text-emerald-500 ">ok</span>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Adresse
+                                email</label>
+                            <input type="email" name="email" id="email" autocomplete="off"
+                                value="<?= $user->getMail() ?? null?>"
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
+                            <p class="mt-2 hidden text-sm text-gray-500" id="mail-format">
+                                Exemple: mouhamed845@gmail.com
+                            </p>
+                            <span id="error-mail" class="hidden mt-2 text-red-500"></span>
+                            <span id="email-ok" class="hidden mt-2 text-emerald-500 ">ok</span>
+                        </div>
+                        <input type="hidden" name="email-user" value="<?= $user->getMail() ?? null?>" />
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 text-right sm:px-6 flex justify-between items-center">
+                    <button type="submit" id="inscription" data-tooltip-target="tooltip-animation"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-emerald-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2">Modifier</button>
+                    <div id="tooltip-animation" role="tooltip"
+                        class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700"
+                        style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(0px, 8px);"
+                        data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom">
+                        Veuillez d'abord faire une modification avant de soumettre
+                        <div class="tooltip-arrow" data-popper-arrow=""
+                            style="position: absolute; left: 0px; transform: translate(0px);"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</body>
+<script src="http:://localhost/tp/js/modifier.js"></script>
+
+</html>

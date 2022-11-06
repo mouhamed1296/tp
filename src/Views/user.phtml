@@ -1,0 +1,36 @@
+<?php
+/** @var User[] $users  */
+
+include_once __DIR__."/components/head.phtml";
+?>
+
+<body>
+    <?php include_once "components/nav.phtml"; ?>
+    <main class="container flex flex-col md:mx-auto mx-4">
+        <div class="pb-4 bg-transparent mt-4">
+            <label for="searchUndrafted" class="sr-only">Recherche</label>
+            <div class="relative mt-1">
+                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                    <i class="fa-solid fa-search"></i>
+                </div>
+                <input type="text" id="searchUndrafted" name="searchUndrafted"
+                    class="block p-2 pl-10 w-80 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500"
+                    placeholder="entrez votre recherche">
+            </div>
+        </div>
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg" id="list-users">
+
+            <?php 
+                if (count($users) > 0){
+                    include_once __DIR__."/components/userTableList.phtml";
+                } else {
+                    include_once __DIR__."/components/NoUserFound.phtml";
+                }
+            ?>
+        </div>
+        <?php include_once __DIR__."/components/pagination.phtml"; ?>
+    </main>
+    <script src="http:://localhost/tp/js/search.js"></script>
+</body>
+
+</html>

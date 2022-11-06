@@ -4,10 +4,10 @@ use \PDO;
 
 class Db {
     
-    public function __construct()
+    private function __construct()
     {}
     
-    public function connect() 
+    public static function connect() 
     {
         try {
             return new PDO("mysql:host=localhost;dbname=tp", "root", "Namass@20");

@@ -260,6 +260,59 @@ const disableInscriptionBtn = () => {
   }
 };
 
+const serverError = document.getElementById("server-error");
+if (serverError) {
+  if (
+    !mail.value.match(mailformat) ||
+    mail.value === "" ||
+    nom.value === "" ||
+    prenom.value === "" ||
+    confirmPassword.value === "" ||
+    password.value === "" ||
+    password.value !== confirmPassword.value
+  ) {
+    disableInscriptionBtn();
+  } else {
+    mail.setAttribute("data-valid", true);
+    nom.setAttribute("data-valid", true);
+    prenom.setAttribute("data-valid", true);
+    password.setAttribute("data-valid", true);
+    confirmPassword.setAttribute("data-valid", true);
+    champOk(mail, validMailText);
+    champOk(nom, validNomText);
+    champOk(prenom, validPrenomText);
+    champOk(password, validPasswordText);
+    champOk(confirmPassword, validConfirmPasswordText);
+    enableInscriptionBtn();
+  }
+}
+
+/* (() => {
+  if (
+    !mail.value.match(mailformat) ||
+    mail.value === "" ||
+    nom.value === "" ||
+    prenom.value === "" ||
+    confirmPassword.value === "" ||
+    password.value === "" ||
+    password.value !== confirmPassword.value
+  ) {
+    disableInscriptionBtn();
+  } else {
+    mail.setAttribute("data-valid", true);
+    nom.setAttribute("data-valid", true);
+    prenom.setAttribute("data-valid", true);
+    password.setAttribute("data-valid", true);
+    confirmPassword.setAttribute("data-valid", true);
+    champOk(mail, validMailText);
+    champOk(nom, validNomText);
+    champOk(prenom, validPrenomText);
+    champOk(password, validPasswordText);
+    champOk(confirmPassword, validConfirmPasswordText);
+    enableInscriptionBtn();
+  }
+})(); */
+
 const passwordHandler = document.getElementById("password-handler");
 passwordHandler.addEventListener("click", () => {
   resetPasswordValidation();

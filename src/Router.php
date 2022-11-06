@@ -59,7 +59,15 @@ class Router {
                 $callback = $this->notFoundHandler;
             }
         }
-
+        if($requestPath === "/tp/searchUndrafted" || $requestPath === "/tp/searchDrafted"
+         || $requestPath === "/tp/updatePassword")
+        {
+            header("Content-Type: application/json; charset=UTF-8");
+            call_user_func_array($callback, [
+                array_merge(json_decode(file_get_contents('php://input'), true))
+            ]);
+            return;
+        }
         call_user_func_array($callback, [
             array_merge($_GET, $_POST, $_FILES)
         ]);

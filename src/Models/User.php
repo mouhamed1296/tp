@@ -6,7 +6,7 @@ require __DIR__."/../../vendor/autoload.php";
 class User{
     
     public function __construct(private string $matricule, private string $lastname, private string $firstname, 
-    private string $mail, private string $role, private $photo, private string $password, private int $state = 1, private int $isAdmin = 0)
+    private string $mail, private string $role, private $photo, private string $password, private int $state = 1, private int $isAdmin = 0, private string | null $date_archive=null,private string | null $date_ins=null)
     {}
 
     public function getMatricule(): string {
@@ -46,5 +46,11 @@ class User{
     }
     public function getIsAdmin(): int {
         return $this->isAdmin;
+    }
+    public function getDateArchive():string {
+        return $this->date_archive;
+    }
+    public function getDateIns():string {
+        return $this->date_ins;
     }
 }

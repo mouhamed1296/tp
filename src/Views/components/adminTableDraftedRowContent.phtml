@@ -1,0 +1,24 @@
+<th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+    <?= $user->getMatricule() ?>
+</th>
+<td class="py-4 px-6">
+    <?= $user->getNom() ?>
+</td>
+<td class="py-4 px-6">
+    <?= $user->getPrenom() ?>
+</td>
+<td class="py-4 px-6">
+    <?= $user->getDateArchive() ?>
+</td>
+<td class="py-4 px-6 font-medium <?= $user->getRole() === "Admin" ? "text-emerald-700" : "text-red-400"?>">
+    <?= $user->getRole() ?>
+</td>
+<td class="py-4 flex justify-between items-center px-6">
+    <form action="desarchiveUser" method="post">
+        <input type="hidden" name="email" value="<?=$user->getMail()?>">
+        <button data-tooltip-target="tooltip-undraft" type="submit" data-modal-toggle="archive-modal"
+            class="font-medium text-red-600 hover:underline">
+            <i class="fa-solid fa-box-open"></i>
+        </button>
+    </form>
+</td>

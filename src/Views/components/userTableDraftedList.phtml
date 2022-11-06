@@ -1,0 +1,77 @@
+<table class="w-full text-sm text-left text-gray-500">
+    <thead class="text-xs text-white uppercase bg-emerald-600">
+        <tr>
+            <th scope="col" class="py-3 px-6">
+                Matricule
+            </th>
+            <th scope="col" class="py-3 px-6">
+                Nom
+            </th>
+            <th scope="col" class="py-3 px-6">
+                Prenom
+            </th>
+            <th scope="col" class="py-3 px-6">
+                Email
+            </th>
+            <th scope="col" class="py-3 px-6">
+                Role
+            </th>
+            <th scope="col" class="py-3 px-6">
+                Date Archivage
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+    foreach ($users as $key => $user):
+        if ((int) $key % 2 === 0):
+?>
+        <tr class="bg-white border-b">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                <?= $user->getMatricule() ?>
+            </th>
+            <td class="py-4 px-6">
+                <?= $user->getNom() ?>
+            </td>
+            <td class="py-4 px-6">
+                <?= $user->getPrenom() ?>
+            </td>
+            <td class="py-4 px-6">
+                <?= $user->getMail() ?>
+            </td>
+            <td class="py-4 px-6 font-medium <?= $user->getRole() === "Admin" ? "text-emerald-700" : "text-red-400"?>">
+                <?= $user->getRole() ?>
+            </td>
+            <td class="py-4 px-6">
+                <?= $user->getDateArchive() ?>
+            </td>
+        </tr>
+        <?php
+        else:
+?>
+        <tr class="bg-white border-b bg-zinc-100">
+            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
+                <?= $user->getMatricule() ?>
+            </th>
+            <td class="py-4 px-6">
+                <?= $user->getNom() ?>
+            </td>
+            <td class="py-4 px-6">
+                <?= $user->getPrenom() ?>
+            </td>
+            <td class="py-4 px-6">
+                <?= $user->getMail() ?>
+            </td>
+            <td class="py-4 px-6 font-medium <?= $user->getRole() === "Admin" ? "text-emerald-700" : "text-red-400"?>">
+                <?= $user->getRole() ?>
+            </td>
+            <td class="py-4 px-6">
+                <?= $user->getDateArchive() ?>
+            </td>
+        </tr>
+        <?php
+        endif;
+    endforeach;
+?>
+    </tbody>
+</table>

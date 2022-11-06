@@ -1,0 +1,37 @@
+<th scope="row" class="flex-1 py-4 px-6 sm:py-2 sm:px-2 font-medium text-gray-900 whitespace-nowrap">
+    <?= $user->getMatricule() ?>
+</th>
+<td class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+    <?= $user->getNom() ?>
+</td>
+<td class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+    <?= $user->getPrenom() ?>
+</td>
+<td class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+    <?= $user->getMail() ?>
+</td>
+<td
+    class="flex-1 py-4 px-6 sm:py-2 sm:px-2 font-medium <?= $user->getRole() === "Admin" ? "text-emerald-700" : "text-red-400"?>">
+    <?= $user->getRole() ?>
+</td>
+<td class="flex-1 py-4 px-6 sm:py-2 sm:px-2">
+    <?= $user->getDateIns() ?>
+</td>
+<td class="flex-1 py-4 px-6 sm:py-2 sm:px-2 flex justify-between items-center">
+    <a href="#" data-tooltip-target="tooltip-edit" class="font-medium text-zinc-600 hover:underline update" id="update"
+        data-modal-toggle="update-modal" data-email="<?= $user->getMail() ?>">
+        <i class="fa-regular fa-pen-to-square" id="updateIcon"></i>
+    </a>
+    <form action="switch-role" method="post">
+        <input type="hidden" name="email" value="<?=$user->getMail()?>">
+        <button type="submit" data-tooltip-target="tooltip-change-role"
+            class="font-medium text-blue-600 hover:underline">
+            <i class="fa-solid fa-repeat"></i>
+        </button>
+    </form>
+    <a href="#" data-tooltip-target="tooltip-draft" data-modal-toggle="archive-modal"
+        data-email="<?= $user->getMail() ?>" data-action="archive"
+        class="font-medium text-red-600 hover:underline archive">
+        <i class="fa-solid fa-box-archive" id="archiveIcon"></i>
+    </a>
+</td>
