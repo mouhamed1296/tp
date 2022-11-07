@@ -1,5 +1,20 @@
-<?php
+<?php include "components/head.phtml" ?>
 
-?>
-<h1><?= $title ?></h1>
-<a href="/tp/">cliquer sur ce lien pour naviguer vers la page d'acceuil</a>
+<body class="bg-red-100">
+    <div class="grid h-screen place-items-center">
+
+        <div class="flex flex-col">
+            <img class="" src="http:://localhost/tp/images/404-error.png" alt="">
+            <div class="mt-0">
+                <h1 class="text-3xl font-bold"><?= $title ?></h1>
+                <div class="flex flex-col gap-4">
+                    <span class="text-lg mt-1">Cliquer sur ce bouton pour naviguer vers la page d'acceuil</span>
+                    <a href="/tp/" class="bg-emerald-600 text-white p-3 w-32 text-center rounded">
+                        <i class="fa-solid fa-arrow-left mr-1"></i>
+                        Acceuil
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
