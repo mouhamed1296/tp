@@ -24,6 +24,7 @@
     </a>
     <form action="switch-role" method="post">
         <input type="hidden" name="email" value="<?=$user->getMail()?>">
+        <input type="hidden" name="page" value="<?= $page ?? null ?>">
         <button type="submit" data-tooltip-target="tooltip-change-role"
             class="font-medium text-blue-600 hover:underline">
             <i class="fa-solid fa-repeat"></i>

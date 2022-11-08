@@ -102,7 +102,15 @@ class AdminController
         if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true && $_SESSION['role'] === "Admin"){
             $userRepo = new UserRepository();
             $userRepo->changeRole($params['email']);
-            header("location: admin");
+            $location = "admin";
+            /* var_dump($params);
+            exit; */
+            if(isset($params['page'])) {
+                $page = $params['page'];
+                $location = "admin?page=$page";
+            }
+            
+            header("location: $location");
         } else {
             header('location: /tp/');
         }
