@@ -7,7 +7,7 @@ class Db {
     private function __construct()
     {}
     
-    public static function connect() 
+    public static function connect()
     {
         try {
             return new PDO("mysql:host=localhost;dbname=tp", "root", "Namass@20");

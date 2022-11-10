@@ -4,11 +4,28 @@ session_start();
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Utils\Validator;
 
 class AddUserController
 {
-    public function form()
+    public function form($params)
     {
+        if (isset($params['non'])) {
+            session_unset();
+            session_destroy();
+        }
+        if (isset($params['oui'])) {
+            $_SESSION['loggedIn'] = true;
+            $_SESSION['fullname'] = $_SESSION['prenom']. ' '. $_SESSION['nom'];
+            if ($_SESSION['role'] === "Admin") {
+                header("location: user");
+                exit;
+            }
+            if ($_SESSION['role'] === "User") {
+                header("location: admin");
+                exit;
+            }
+        }
         require_once __DIR__.'/../Views/inscription.phtml';
     }
 
@@ -25,7 +42,13 @@ class AddUserController
         $photoData = null;
         $userRepo = new UserRepository();
         $dbUser = $userRepo->getUserByEmail($email);
-        $this->setSession($nom, $prenom, $email, $role, $password);
+        $generated = "MU2022/".$userRepo->generateMatricule();
+        $this->setSession($nom, $prenom, $email, $role, $password, $generated);
+        $validator = new Validator();
+        if (!$validator->validateEmail($email)) {
+            $error = "Adresse email incorrect";
+            $this->showError($error);
+        }
         if ($dbUser){
             $error = "Adresse email déja pris";
             $this->showError($error);
@@ -41,9 +64,8 @@ class AddUserController
             }
             $photoData = file_get_contents($photo["tmp_name"]);
         }
+        $_SESSION['photo'] = $photoData;
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $generated = "MU2022/".$userRepo->generateMatricule();
 
         $isAdmin = (strtolower($role) === "admin") ? 1 : 0;
 
@@ -73,15 +95,18 @@ class AddUserController
                 </button>
                 <div class="p-6 text-center">
                     <i class="fa-regular fa-circle-ckeck fa-2x text-emerald-600"></i>
-                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez vous ajouter un autre utilisateur?</h3>
-                    <a href="inscription">
-                    <button data-modal-toggle="popup-modal" type="button" class="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                        Oui
-                    </button>
-                    </a>
-                    <a href="/tp/">
-                    <button data-modal-toggle="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Non</button>
-                    </a>
+                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Voulez vous vous connecter?</h3>
+                    <div class="flex justify-between">
+                        <a href="inscription?oui">
+                        <button data-modal-toggle="popup-modal" type="button" class="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">Oui</button>
+                        </a>
+                        <a href="inscription?non">
+                            <button data-modal-toggle="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+                                Non
+                            </button>
+                        </a>
+                       
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,12 +115,13 @@ class AddUserController
         exit;
     }
 
-    private function setSession(string $nom, string $prenom, string $email, string $role, string $password) 
+    private function setSession(string $nom, string $prenom, string $email, string $role, string $password, $matricule = "") 
     {
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $role;
         $_SESSION['password'] = $password;
+        $_SESSION['matricule'] = $matricule;
     }
 }

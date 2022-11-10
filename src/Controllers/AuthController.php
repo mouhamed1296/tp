@@ -3,6 +3,7 @@ namespace App\Controllers;
 session_start();
 
 use App\Repositories\UserRepository;
+use App\Utils\Validator;
 
 require_once __DIR__."/../../vendor/autoload.php";
 
@@ -26,6 +27,11 @@ class AuthController
        $email = htmlentities($params['mail']);
        $password = htmlentities($params['password']);
        $userRepo = new UserRepository();
+       $validator = new Validator();
+       if (!$validator->validateEmail($email)) {
+            $error = "Adresse email incorrect";
+            $this->setError($error);
+        }
        $user = $userRepo->getUserByEmail($email);
        //var_dump($email);
        //var_dump($password);

@@ -51,9 +51,11 @@
                         aria-current="page">Liste employe</a>
                 </li>
                 <li>
-                    <a href="<?= $_SESSION['role'] === "Admin" ? "archives" : "userArchives"?>"
-                        class="block py-2 pr-4 pl-3 <?= $path === "archives" || $path === "userArchives" ? $linkFocusClasses : $linkBlurClasses?>">Liste
+                    <?php if ($_SESSION['role'] === "Admin"): ?>
+                    <a href="archives"
+                        class="block py-2 pr-4 pl-3 <?= $path === "archives" ? $linkFocusClasses : $linkBlurClasses?>">Liste
                         archivés</a>
+                    <?php endif; ?>
                 </li>
                 <li>
                     <a href="logout"
