@@ -24,8 +24,8 @@
                             <div class="bg-white px-4 py-5 sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="first-name"
-                                            class="block text-sm font-medium text-gray-700">Nom</label>
+                                        <label for="first-name" class="block text-sm font-medium text-gray-700">Nom<span
+                                                class="text-red-500">*</span></label>
                                         <input type="text" name="first-name" id="first-name" autocomplete="off"
                                             value="<?= $_SESSION['nom'] ?? null?>"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
@@ -35,7 +35,8 @@
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="last-name"
-                                            class="block text-sm font-medium text-gray-700">Prenom</label>
+                                            class="block text-sm font-medium text-gray-700">Prenom<span
+                                                class="text-red-500">*</span></label>
                                         <input type="text" name="last-name" id="last-name" autocomplete="off"
                                             value="<?= $_SESSION['prenom'] ?? null?>"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
@@ -45,7 +46,7 @@
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="email" class="block text-sm font-medium text-gray-700">Adresse
-                                            email</label>
+                                            email<span class="text-red-500">*</span></label>
                                         <input type="email" name="email" id="email" autocomplete="off"
                                             value="<?= $_SESSION['email'] ?? null?>"
                                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 sm:text-sm">
@@ -57,7 +58,8 @@
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                                        <label for="role" class="block text-sm font-medium text-gray-700">Role<span
+                                                class="text-red-500">*</span></label>
                                         <select id="role" name="role"
                                             class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm">
                                             <option selected></option>
@@ -69,7 +71,7 @@
                                     </div>
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="password" class="block text-sm font-medium text-gray-700">Mot de
-                                            passe</label>
+                                            passe<span class="text-red-500">*</span></label>
                                         <div class="relative mb-6">
                                             <input type="password" name="password" id="password"
                                                 value="<?= $_SESSION['password'] ?? null?>" placeholder="mot de passe"
@@ -86,7 +88,7 @@
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="confirm-password"
                                             class="block text-sm font-medium text-gray-700">Confirmer
-                                            mot de passe</label>
+                                            mot de passe<span class="text-red-500">*</span></label>
                                         <div class="relative mb-6">
                                             <input type="password" name="confirm-password" id="confirm-password"
                                                 value="<?= $_SESSION['password'] ?? null?>" placeholder="mot de passe"
